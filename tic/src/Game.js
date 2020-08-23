@@ -9,17 +9,35 @@ export default class Game extends React.Component {
            squares: Array(9).fill(null)
        }],
        xIsNext: true
-   };
-        render() {
-            const history = this.state.history;
-            const current = history[history.length - 1];
-            const winner = CalculateWinner(current.squares);
-            let status;
-            if (winner) {
-                status = 'Выиграл ' + winner;
-            } else {
-                status = 'Следующий ход: ' + (this.state.xIsNext ? 'X' : 'O');
-            }
+   }
+    handleClick(i){
+        const history = this.state.history;
+        const current = history[history.length - 1];
+        const squares = current.squares.slice();
+        if(CalculateWinner(squares) || squares[i]){
+            return ;
+        }
+        squares[i] = this.state.xIsNext ? 'X' : 'O';
+        this.setState({
+            history: history.concat([{
+                    squares: squares,
+                }]
+            ),
+            xIsNext: !this.state.xIsNext
+        });
+    }
+
+render() {
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    const winner = CalculateWinner(current.squares);
+
+    let status;
+    if (winner) {
+        status = 'Winner: ' + winner;
+    } else {
+        status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    }
 
             return (
                 <div className="game">
