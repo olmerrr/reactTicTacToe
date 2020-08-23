@@ -5,6 +5,13 @@ export default class Board extends React.Component {
     state = {
         squares : Array(9).fill(null)
     };
+    handleClick(i){
+        const squares = this.state.squares.slice();
+        squares[i] = 'X';
+        this.setState({
+            squares: squares
+        });
+    }
     renderSquare(i) {
         return <Square
             value={this.state.squares[i]}
