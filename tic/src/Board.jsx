@@ -1,8 +1,7 @@
 import React from "react";
 import Square from "./Square";
-import CalculateWinner from './CalculateWinner';
+// import CalculateWinner from './CalculateWinner';
 export default class Board extends React.Component {
-
 
     renderSquare(i) {
         return <Square
